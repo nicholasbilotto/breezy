@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="980" viewBox="0 0 1400 980">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c79c76"/>
+      <stop offset="1" stop-color="#b7845b"/>
+    </linearGradient>
+    <!-- Mask: show folder everywhere except a narrow right-side opening -->
+    <mask id="cutoutMask">
+      <rect width="1400" height="980" fill="#fff"/>
+      <!-- Narrow opening so photos feel tucked inside -->
+      <rect x="1228" y="0" width="172" height="980" fill="#000"/>
+      <!-- Notch bite -->
+      <path
+        d="M1216 348
+           C 1216 286, 1266 258, 1288 236
+           C 1302 220, 1310 198, 1314 174
+           L 1314 524
+           C 1300 538, 1274 552, 1248 564
+           C 1228 574, 1216 594, 1216 628
+           Z"
+        fill="#000"
+        opacity="1"
+      />
+    </mask>
+  </defs>
+
+  <g mask="url(#cutoutMask)">
+    <rect width="1400" height="980" rx="28" fill="url(#paper)"/>
+    <rect x="54" y="54" width="22" height="872" rx="10" fill="#000" opacity="0.05"/>
+    <rect width="1400" height="980" rx="28" fill="#000" opacity="0.04"/>
+  </g>
+</svg>
+
