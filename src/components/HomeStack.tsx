@@ -91,6 +91,7 @@ export default function HomeStack() {
 	const canHover = useCanHover();
 	const [armedHref, setArmedHref] = useState<string | null>(null);
 	const [commercialEdgeHover, setCommercialEdgeHover] = useState(false);
+	const [activeLabel, setActiveLabel] = useState<string | null>(null);
 
 	useEffect(() => {
 		if (canHover) setArmedHref(null);
@@ -105,6 +106,18 @@ export default function HomeStack() {
 		<div className="flex w-full items-center justify-center">
 			{/* Fixed composition box to match mockup proportions */}
 			<div className="relative h-[670px] w-[820px] max-w-full">
+				<div className="pointer-events-none absolute left-1/2 top-5 z-120 -translate-x-1/2 text-center">
+					<div
+						className={[
+							"text-xs font-semibold tracking-[0.22em] uppercase text-foreground",
+							"transition-all duration-200 ease-out",
+							activeLabel ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1",
+						].join(" ")}
+					>
+						{activeLabel ?? ""}
+					</div>
+				</div>
+
 				{/* Folder back (slightly offset so it creeps through) */}
 				<div className="absolute left-[92px] top-[42px] h-[548px] w-[530px] origin-center scale-y-[1.49] opacity-[0.98]">
 					<Image
@@ -146,7 +159,11 @@ export default function HomeStack() {
 								// Activate pull near the folder opening/right edge.
 								setCommercialEdgeHover(localX >= rect.width * 0.74);
 							}}
+							onMouseEnter={() => {
+								setActiveLabel(s.label);
+							}}
 							onMouseLeave={() => {
+								setActiveLabel((prev) => (prev === s.label ? null : prev));
 								if (!isCommercial) return;
 								setCommercialEdgeHover(false);
 							}}
@@ -159,19 +176,6 @@ export default function HomeStack() {
 								zIndex: s.z,
 							}}
 						>
-							{/* Hover label (shows where it leads) */}
-							<div
-								className={[
-									"pointer-events-none absolute -top-7 left-0 w-max text-xs font-semibold",
-									"tracking-[0.22em] uppercase text-foreground",
-									"opacity-0 translate-y-1 transition-all duration-200 ease-out",
-									"group-hover:opacity-100 group-hover:translate-y-0",
-									isArmed ? "opacity-100 translate-y-0" : "",
-								].join(" ")}
-							>
-								{s.label}
-							</div>
-
 							<div
 								style={
 									{
